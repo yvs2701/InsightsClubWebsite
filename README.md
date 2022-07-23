@@ -1,4 +1,4 @@
-# InsightsClubWebsite
+# Insights Club Website
 
 • Insights Club is an official *Journalism Club* in VITB
 
@@ -16,9 +16,9 @@
 
 • Departments
 
-☆ Technical Team
-☆ Editing Team
-☆ Content Team
-☆ Designing Team
-☆ PR and Outreach Team
-☆ Event/Resource Management Team
+# ☆ Technical Team
+# ☆ Editing Team
+# ☆ Content Team
+# ☆ Designing Team
+# ☆ PR and Outreach Team
+# ☆ Event/Resource Management Team
