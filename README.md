@@ -18,7 +18,7 @@
 
 <br>☆ Technical Team</br>
 <br>☆ Editing Team</br>
-# ☆ Content Team
-# ☆ Designing Team
-# ☆ PR and Outreach Team
-# ☆ Event/Resource Management Team
+<br>☆ Content Team</br>
+<br>☆ Designing Team</br>
+<br>☆ PR and Outreach Team</br>
+<br>☆ Event/Resource Management Team</br>
