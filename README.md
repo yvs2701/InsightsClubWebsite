@@ -16,8 +16,8 @@
 
 • Departments
 
-# ☆ Technical Team
-# ☆ Editing Team
+<br>☆ Technical Team</br>
+<br>☆ Editing Team</br>
 # ☆ Content Team
 # ☆ Designing Team
 # ☆ PR and Outreach Team
