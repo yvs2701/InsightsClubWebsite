@@ -14,7 +14,7 @@
 
 • Allowing the students to be creative in media.
 
-#Departments
+# Departments
 <br>☆ Technical Team</br>
 <br>☆ Editing Team</br>
 <br>☆ Content Team</br>
