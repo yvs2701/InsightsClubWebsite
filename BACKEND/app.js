@@ -6,7 +6,7 @@ const fileUpload = require("express-fileupload");
 const cors = require("cors");
 
 app.use(express.json());
-const allowedOrigins = ["http://localhost:3000", "https://insights-club-vitb.ml"];
+const allowedOrigins = ["http://localhost:3000"];
 app.use(
 	cors({
 		origin: function (origin, callback) {
