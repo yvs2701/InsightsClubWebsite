@@ -1,23 +1,40 @@
 # Insights Club Website
+> Website is down as it was exceeding the budget of Insights Club and we decided to shut it down for now.<br>The devs and the club are working on a new website which will be up soon.
+>The new website will probably be a frontend only, as developing an entire full stack solution like this one is not feasible for the club.
+>
+>Thank you for your support and patience. \
+> Stay tuned for more updates.
 
-• Insights Club is an official *Journalism Club* in VITB
+~ Yashvardhan Singh, Tech Team - Insights Club
+> P.S. - This website is still functional and can be accessed by locally deploying it on your machine. Note that a few components were left incomplete when the site was shut down and you may need to setup your own database the site to fetch its content.
 
-• Coming Together is a Beginning. 
- Keeping Together is Progress. 
- Working Together is Success!!
+## Screenshots
+<details>
+<summary>Home Page</summary>
 
-• Providing a uniform flow of information directly to the students, regarding all the events and current affairs.
+![Homepage](./media/Insights%20Club%20Homepage.png)
+</details>
 
-• Publishing a biweekly newsletter.
+<details>
+<summary>Login modal</summary>
 
-• Promoting VIT Bhopal locally using various aspects.
+![Homepage](./media/Insights%20Club%20Login%20screen.png)
+</details>
 
-• Allowing the students to be creative in media.
+<details>
+<summary>Blog Page</summary>
 
-# Departments
-<br>☆ Technical Team</br>
-<br>☆ Editing Team</br>
-<br>☆ Content Team</br>
-<br>☆ Designing Team</br>
-<br>☆ PR and Outreach Team</br>
-<br>☆ Event/Resource Management Team</br>
+![Blogpage](./media/Insights%20Club%20Blogpage.png)
+</details>
+
+<details>
+<summary>Events Page</summary>
+
+![Events page](./media/Insights%20Club%20Event%20page.png)
+</details>
+
+<details>
+<summary>Videos Page</summary>
+
+![Videos page](./media/Insights%20Club%20Videos%20page.png)
+</details>
