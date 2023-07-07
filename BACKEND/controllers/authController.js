@@ -6,42 +6,30 @@ const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const google = require("googleapis");
 const cloudinary = require("cloudinary").v2;
-// const dotenv = require("dotenv");
-// dotenv.config({ path: "config/config.env" });
+const dotenv = require("dotenv");
+dotenv.config({ path: "config/config.env" });
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
 	api_key: process.env.CLOUDINARY_KEY,
 	api_secret: process.env.CLOUDINARY_SECRET,
 });
-const OAuth2Client = new google.Auth.OAuth2Client(
-	process.env.G_OAUTH_ID,
-	process.env.G_OAUTH_SECRET,
-	process.env.G_OAUTH_REDIRECT_URI
-);
 
-let transporter = null;
-(async () => {
-		try {
-		OAuth2Client.setCredentials({
-			refresh_token: process.env.G_OAUTH_REFRESH_TOKEN,
-		});
-		const accessToken = await OAuth2Client.getAccessToken();
+const OAuth2Client = new google.Auth.OAuth2Client(process.env.G_OAUTH_ID, process.env.G_OAUTH_SECRET, process.env.G_OAUTH_REDIRECT_URI);
+OAuth2Client.setCredentials({ refresh_token: process.env.G_OAUTH_REFRESH_TOKEN });
 
-		transporter = nodemailer.createTransport({
-			service: "gmail",
-			auth: {
-				type: "OAuth2",
-				user: process.env.EMAILER,
-				clientId: process.env.G_OAUTH_ID,
-				clientSecret: process.env.G_OAUTH_SECRET,
-				refreshToken: process.env.G_OAUTH_REFRESH_TOKEN,
-				accessToken: accessToken,
-			},
-		});
-	} catch(err) {
-		console.error(err);
-	}
-})()
+const accessToken = OAuth2Client.getAccessToken();
+
+let transporter = nodemailer.createTransport({
+	service: "gmail",
+	auth: {
+		type: 'OAuth2',
+		user: process.env.EMAILER,
+		clientId: process.env.G_OAUTH_ID,
+		clientSecret: process.env.G_OAUTH_SECRET,
+		refreshToken: process.env.G_OAUTH_REFRESH_TOKEN,
+		accessToken: accessToken
+	},
+});
 
 const getRandomText = () => {
 	const length = 11; // 11 character random text
@@ -56,23 +44,27 @@ const getRandomText = () => {
 };
 
 exports.logout = catchAsyncErrors(async (req, res, next) => {
-    if (Object.keys(req.cookies).length !== 0 && req.cookies.hasOwnProperty('token')) {
-        if (req.cookies.token == 'loggedout')
-            res.status(200).json({ success: true, message: 'User was already logged out !' });
-        else try {
-            jwt.verify(req.cookies.token, process.env.JWT_SECRET);
-            // verified successfully
-            res.setHeader('set-cookie', ['token=loggedout; path=/; domain=.insights-club-vitb.ml; samesite=none; httponly; Secure;', 'user={}; path=/; domain=.insights-club-vitb.ml; samesite=none; Secure;']); // added secure for production
-            res.status(200).json({ success: true, message: "User logged out !!" });
-        } catch (e) {
-            if (e.name == 'TokenExpiredError')
-                return next(new ErrorHandler('Token expired !!', 400));
-            else
-                return next(new ErrorHandler('Some error occured !!', 500));
-        }
-    } else {
-        return next(new ErrorHandler('Token is missing !!', 400));
-    }
+	if (Object.keys(req.cookies).length !== 0 && req.cookies.hasOwnProperty('token')) {
+		if (req.cookies.token == 'loggedout')
+			res.status(200).json({ success: true, message: 'User was already logged out !' });
+		else try {
+			jwt.verify(req.cookies.token, process.env.JWT_SECRET);
+			// verified successfully
+			res.setHeader('set-cookie',
+				[
+					'token=loggedout; path=/; samesite=none; httponly; Secure;',
+					'user={}; path=/; samesite=none;'
+				]);
+			res.status(200).json({ success: true, message: "User logged out !!" });
+		} catch (e) {
+			if (e.name == 'TokenExpiredError')
+				return next(new ErrorHandler('Token expired !!', 400));
+			else
+				return next(new ErrorHandler('Some error occured !!', 500));
+		}
+	} else {
+		return next(new ErrorHandler('Token is missing !!', 400));
+	}
 });
 
 exports.login = catchAsyncErrors(async (req, res, next) => {
@@ -110,12 +102,20 @@ exports.login = catchAsyncErrors(async (req, res, next) => {
 				payload.name = doc.name;
 				payload.department = doc.department;
 
-                res.setHeader('set-cookie', [`token=${token}; path=/; domain=.insights-club-vitb.ml; expires=${expiry_date}; samesite=none; httponly; Secure;`, `user=${JSON.stringify(payload)}; path=/; domain=.insights-club-vitb.ml; expires=${expiry_date}; samesite=none; Secure;`]);
+				res.setHeader('set-cookie',
+					[
+						`token=${token}; path=/; expires=${expiry_date}; samesite=none; httponly;`,
+						`user=${JSON.stringify(payload)}; path=/; expires=${expiry_date}; samesite=none;`
+					]);
 
-                res.status(200).json({ success: true, message: 'User logged in !!' });
-            }
-            else {
-                res.setHeader('set-cookie', ['token=loggedout; path=/; domain=.insights-club-vitb.ml; samesite=none; httponly; Secure;', 'user={}; path=/; domain=.insights-club-vitb.ml; samesite=none; Secure;']); // added secure for production
+				res.status(200).json({ success: true, message: 'User logged in !!' });
+			}
+			else {
+				res.setHeader('set-cookie',
+					[
+						'token=loggedout; path=/; domain=.insights-club-vitb.ml; samesite=none; httponly; Secure;',
+						'user={}; path=/; samesite=none;'
+					]);
 
 				return next(new ErrorHandler("Invalid credentials !!", 400));
 			}
