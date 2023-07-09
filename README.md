@@ -1,4 +1,4 @@
-# Insights Club Website
+m# Insights Club Website
 > Website is down as it was exceeding the budget of Insights Club and we decided to shut it down for now.<br>The devs and the club are working on a new website which will be up soon.
 >The new website will probably be a frontend only, as developing an entire full stack solution like this one is not feasible for the club.
 >
@@ -18,7 +18,7 @@
 <details>
 <summary>Login modal</summary>
 
-![Homepage](./media/Insights%20Club%20Login%20screen.png)
+![Login screen](./media/Insights%20Club%20Login%20Screen.png)
 </details>
 
 <details>
